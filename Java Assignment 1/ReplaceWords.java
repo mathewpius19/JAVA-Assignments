@@ -19,11 +19,20 @@ public class ReplaceWords {
 
     public String replaceWords(String para, Vector<String> v1) {
         String replacedString = "";
-        for (String s : v1) {
-            replacedString = replaceString(s);
-            para = para.replaceAll(s, replacedString);
+        String replacedPara = "";
+        for (String str : para.split(" ")) {
+            // System.out.println(str);
+            if (v1.contains(str)) {
+                // System.out.println(s);
+                replacedString = replaceString(str);
+                replacedPara += replacedString;
+            } else {
+                replacedPara += str;
+            }
+            replacedPara += " ";
         }
-        return para;
+
+        return replacedPara;
     }
 
     public String replaceString(String str) {

@@ -45,17 +45,18 @@ public class webScrapper {
 		for(String tagCleaned:tagsCleaned) {
 		elements=driver.findElements(By.tagName(tagCleaned));
 		int length=elements.size();
-		StringBuilder sb = new StringBuilder();
-		sb.append("Tag");
-		sb.append(",");
-		sb.append("content");
-		sb.append("\n");
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("Tag");
+//		sb.append(",");
+//		sb.append("content");
+//		sb.append("\n");
 		for(int i=0;i<length;i++) {
 				
 					elementsCleaned.add(elements.get(i).getText());
 					}
 		}
-				
+
+			
 
 		driver.quit();
 		
@@ -64,26 +65,49 @@ public class webScrapper {
 		
 		
 		
-		File file = new File("C:\\Users\\hp\\Desktop\\JAVA-Assignments\\Java Assingment 3\\seleniumTest\\test.xls");
+		File file1 = new File("C:\\Users\\hp\\Desktop\\JAVA-Assignments\\Java Assingment 3\\seleniumTest\\tagsandelements.xls");
+		File file2 = new File("C:\\Users\\hp\\Desktop\\JAVA-Assignments\\Java Assingment 3\\seleniumTest\\anchor.xls");
 		FileWriter fw = null;
+		FileWriter anchortag=null;
 		try {
-			fw = new FileWriter(file);
+			fw = new FileWriter(file1);
+			anchortag = new FileWriter(file2);
 			StringBuffer sb = new StringBuffer();
+			StringBuffer anchor = new StringBuffer();
 			sb.append("Tag and Corresponding Elements are:");
 			sb.append("\n");
 			for(int i=0;i<tags.size()&& i<elementsCleaned.size();i++) {
 				if(elementsCleaned.get(i).length()==0)
 					continue;
+				if(tags.get(i).equals("a")) {
+					continue;
+				}
+				else {
 				sb.append(tags.get(i).toUpperCase());
 				sb.append("\n");
 				sb.append(elementsCleaned.get(i));
 				sb.append("\n");
+			}
 			}
 			
 			System.out.println("Wrote the data into file");
 			
 			fw.write(sb.toString());
 			fw.close();
+			for(int i=0;i<tags.size()&&i<elements.size();i++) {
+				if(elementsCleaned.get(i).length()==0)
+					continue;
+				if(tags.get(i).equals("a")) {
+					anchor.append(tags.get(i).toUpperCase());
+					anchor.append("\n");
+					anchor.append(elements.get(i));
+					anchor.append("\n");
+				}
+				else
+					continue;
+			}
+			System.out.println("Wrote Anchor tags");
+			anchortag.close();
 		}	
 		catch(Exception e) {
 			System.out.println("Error!");

@@ -35,7 +35,12 @@ public class webScrapper {
 		int Elelength=elements.size();	
 		for(int i=0;i<Elelength;i++) 
 				tags.add((elements.get(i).getTagName()));
-		
+		List<WebElement> anchor = new ArrayList<WebElement>();
+		anchor= driver.findElements(By.tagName("a"));
+//		int linkLength =anchor.size();
+////		for(int i=0;i<linkLength;i++) {
+////			System.out.println(anchor.get(i).getText());
+////		}
 //		for(String tag:tags)
 //		System.out.println(tag);
 //		List<WebElement> elements= new ArrayList<WebElement>();
@@ -58,7 +63,7 @@ public class webScrapper {
 
 			
 
-		driver.quit();
+
 		
 //tags arrayList contains all the tags
 //elementsCleaned arrayList contains all the elements corresponding to the tags
@@ -66,52 +71,53 @@ public class webScrapper {
 		
 		
 		File file1 = new File("C:\\Users\\hp\\Desktop\\JAVA-Assignments\\Java Assingment 3\\seleniumTest\\tagsandelements.xls");
-		File file2 = new File("C:\\Users\\hp\\Desktop\\JAVA-Assignments\\Java Assingment 3\\seleniumTest\\anchor.xls");
 		FileWriter fw = null;
-		FileWriter anchortag=null;
+		
 		try {
 			fw = new FileWriter(file1);
-			anchortag = new FileWriter(file2);
+			
 			StringBuffer sb = new StringBuffer();
-			StringBuffer anchor = new StringBuffer();
+			
 			sb.append("Tag and Corresponding Elements are:");
 			sb.append("\n");
 			for(int i=0;i<tags.size()&& i<elementsCleaned.size();i++) {
 				if(elementsCleaned.get(i).length()==0)
 					continue;
-				if(tags.get(i).equals("a")) {
-					continue;
-				}
-				else {
 				sb.append(tags.get(i).toUpperCase());
 				sb.append("\n");
 				sb.append(elementsCleaned.get(i));
 				sb.append("\n");
-			}
+			
 			}
 			
 			System.out.println("Wrote the data into file");
 			
 			fw.write(sb.toString());
 			fw.close();
-			for(int i=0;i<tags.size()&&i<elements.size();i++) {
-				if(elementsCleaned.get(i).length()==0)
+			File file2 = new File("C:\\Users\\hp\\Desktop\\JAVA-Assignments\\Java Assingment 3\\seleniumTest\\anchor.xls");
+			FileWriter anchortag=null;
+			anchortag = new FileWriter(file2);
+			StringBuffer links = new StringBuffer();
+			links.append("Anchor Tags :");
+			links.append("\n");
+			for(int i=0;i<anchor.size();i++){
+				if(anchor.get(i).getText().length()==0) {
 					continue;
-				if(tags.get(i).equals("a")) {
-					anchor.append(tags.get(i).toUpperCase());
-					anchor.append("\n");
-					anchor.append(elements.get(i));
-					anchor.append("\n");
 				}
-				else
-					continue;
+				else {
+					links.append(anchor.get(i).getText());
+					links.append("\n");
+				}
 			}
-			System.out.println("Wrote Anchor tags");
+			anchortag.write(links.toString());
 			anchortag.close();
+			System.out.println("Wrote Anchor tags");
+			
 		}	
 		catch(Exception e) {
-			System.out.println("Error!");
+			System.out.println("Error!"+e);
 		}
+		driver.quit();
 		
 	}
 }	

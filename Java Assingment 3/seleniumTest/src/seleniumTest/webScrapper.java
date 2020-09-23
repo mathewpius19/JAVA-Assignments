@@ -37,24 +37,14 @@ public class webScrapper {
 				tags.add((elements.get(i).getTagName()));
 		List<WebElement> anchor = new ArrayList<WebElement>();
 		anchor= driver.findElements(By.tagName("a"));
-//		int linkLength =anchor.size();
-////		for(int i=0;i<linkLength;i++) {
-////			System.out.println(anchor.get(i).getText());
-////		}
-//		for(String tag:tags)
-//		System.out.println(tag);
-//		List<WebElement> elements= new ArrayList<WebElement>();
+
 		Collections.sort(tags);
 		Set<String> tagsCleaned=new LinkedHashSet<>(tags);		
 		ArrayList<String> elementsCleaned = new ArrayList<String>();
 		for(String tagCleaned:tagsCleaned) {
 		elements=driver.findElements(By.tagName(tagCleaned));
 		int length=elements.size();
-//		StringBuilder sb = new StringBuilder();
-//		sb.append("Tag");
-//		sb.append(",");
-//		sb.append("content");
-//		sb.append("\n");
+
 		for(int i=0;i<length;i++) {
 				
 					elementsCleaned.add(elements.get(i).getText());
@@ -67,6 +57,7 @@ public class webScrapper {
 		
 //tags arrayList contains all the tags
 //elementsCleaned arrayList contains all the elements corresponding to the tags
+//anchor contains anchor tags
 		
 		
 		

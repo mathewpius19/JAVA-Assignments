@@ -96,7 +96,7 @@ public class webScrapper {
 					continue;
 				}
 				else {
-					links.append(anchor.get(i).getText());
+					links.append(anchor.get(i).getAttribute("href"));
 					links.append("\n");
 				}
 			}

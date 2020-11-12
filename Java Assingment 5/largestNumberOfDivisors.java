@@ -49,15 +49,17 @@ public class largestNumberOfDivisors extends Thread {
         int div = 0;
         for (int i = this.startValue; i <= this.startValue + 1000; i++) {
             div = 0;
-            for (int j = 1; j < 100000; j++) {
+            for (int j = 1; j <= i; j++) {
                 if (i % j == 0) {
                     div += 1;
                 }
 
             }
             if (div > maxDivCount) {
-                maxDivCount = div;
-                num = i;
+                synchronized (this) {
+                    maxDivCount = div;
+                    num = i;
+                }
             }
         }
     }
